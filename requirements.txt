@@ -1,6 +1,0 @@
-langchain[all]
-sentence-transformers
-chromadb
-streamlit
-openai
-

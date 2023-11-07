@@ -1,0 +1,15 @@
+langchain
+# source for sentence embeddings
+sentence-transformers
+# vector database for storing sentence embeddings
+chromadb
+# for streamlit UIs
+streamlit
+# for interacting directly with openai's API
+openai
+# for loading PDFs
+pypdf
+# for managing environment variables
+python-dotenv
+# for managing dependencies
+pip-tools

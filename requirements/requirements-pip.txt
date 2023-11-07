@@ -1,0 +1,3 @@
+# According to pip-tools pip package is considered to be unsafe
+# in a compiled requirements file, so adding pip here.
+pip==23.3.1

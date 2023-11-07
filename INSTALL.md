@@ -5,7 +5,7 @@ generation example code in this repository.
 
 It is recommended to perform this installation in a virtual
 environment rather than installed directly on a machine for all of the
-standard reasonse.
+standard reasons.
 
 The [`requirements.txt`](requirements.txt) file has been created without
 pinned versions to aspirationally allow running against the latest
@@ -48,7 +48,7 @@ pip install -r requirements.txt
 
 3. Configure and test LLM access
 
-The example has been tested against OpenAI and Azure OpenAI LangChain
+The example has been tested against OpenAI, Azure OpenAI and Amazon Bedrock LangChain
 interfaces, but should work with any LLM supported by LangChain with a
 chat interface.
 
