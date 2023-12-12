@@ -8,8 +8,12 @@
 import os
 import pprint
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.chat_models import AzureChatOpenAI
+from langchain.chat_models import AzureChatOpenAI, BedrockChat
 from langchain.vectorstores import Chroma
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferWindowMemory
@@ -27,6 +31,10 @@ MEMORY_WINDOW_SIZE = 10
 
 
 def main():
+    azure_model_name = os.getenv("OPENAI_MODEL_NAME")
+    aws_bedrock_model_id = os.getenv("AWS_BEDROCK_MODEL_ID")
+    aws_credential_profile_name = os.getenv("AWS_CREDENTIAL_PROFILE_NAME")
+
     # Access persisted embeddings and expose through langchain retriever
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
     db = Chroma(
@@ -38,8 +46,11 @@ def main():
 
     # This version is for AzureOpenAI. Change this function to use
     # a different LLM API
-    model_name = os.getenv("OPENAI_MODEL_NAME")
-    llm = AzureChatOpenAI(temperature=0.5, deployment_name=model_name, verbose=VERBOSE)
+    if azure_model_name:
+        llm = AzureChatOpenAI(temperature=0.5, deployment_name=azure_model_name, verbose=VERBOSE)
+    elif all([aws_bedrock_model_id, aws_credential_profile_name]):
+        # BEDROCK_CLIENT = boto3.client("bedrock", 'us-east-1')
+        llm = BedrockChat(temperature=0.5, model_id=aws_bedrock_model_id, credentials_profile_name=aws_credential_profile_name, verbose=VERBOSE)
 
     # Establish a memory buffer for conversational continuity
     memory = ConversationBufferWindowMemory(

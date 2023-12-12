@@ -13,3 +13,5 @@ pypdf
 python-dotenv
 # for managing dependencies
 pip-tools
+# for interacting with AWS Bedrock
+boto3
